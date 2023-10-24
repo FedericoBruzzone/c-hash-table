@@ -28,3 +28,33 @@ typedef struct {
   int count;
   ht_item **items;
 } ht_hash_table;
+
+/**
+ * Create a new hash table item
+ *
+ * @param k Key
+ * @param v Value
+ * @return ht_item
+ */
+static ht_item *ht_make_item(const char *key, const char *value);
+
+/**
+ * Create a new hash table
+ *
+ * @return ht_hash_table
+ */
+ht_hash_table *ht_make();
+
+/**
+ * Delete a hash table item
+ *
+ * @param i ht_item
+ */
+static void ht_del_item(ht_item *item);
+
+/**
+ * Delete a hash table
+ *
+ * @param ht ht_hash_table
+ */
+void ht_del_hash_table(ht_hash_table *ht);

@@ -1,24 +1,27 @@
 CC = gcc
 EXT = c
 
-# CFLAGS="-Wall -Wextra -Werror -Wpedantic -std=c99  -o3 -mfma"
+# CFLAGS="-Wall -Wextra -Werror -Wpedantic -std=c99  -o3 -mfma" -std=c11
 CFLAGS = -Wall -Wextra -std=c11
 # LIBS="-lm"
 LIBS =
 
-INC = -I src
+INC = -Isrc
 SRC = src
+TEST = test
 TARGETS_WITH_EXT = $(wildcard $(SRC)/*.$(EXT))
 TARGETS = $(basename $(TARGETS_WITH_EXT))
 
-all: clean build link
+all: clean dir build link
+
+dir:
+	mkdir -p build
+	mkdir -p build/$(SRC)
+	mkdir -p build/$(TEST)
 
 build: $(TARGETS)
 
 $(TARGETS):
-	mkdir -p build
-	mkdir -p build/src
-	mkdir -p build/test
 	$(CC) $(CFLAGS) $(INC) -c $@.$(EXT) -o build/$@.o
 
 link:
