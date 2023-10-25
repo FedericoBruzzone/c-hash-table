@@ -3,8 +3,7 @@ EXT = c
 
 # CFLAGS="-Wall -Wextra -Werror -Wpedantic -std=c99  -o3 -mfma" -std=c11
 CFLAGS = -Wall -Wextra -std=c11
-# LIBS="-lm"
-LIBS =
+LIBS=-lm
 
 INC = -Isrc
 SRC = src
