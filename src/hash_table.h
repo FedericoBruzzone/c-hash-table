@@ -75,13 +75,19 @@ static int ht_hash(const char *s, const int c, const int num_buckets);
 /**
  * Compute the hash of a string using the open addressing method with double
  * hashing.
+ * Double hashing is a technique in which the second hash function is used to
+ * avoid clustering and distribute the keys more uniformly to the detriment of
+ * the cache performance. The linear probing and quadratic probing techniques
+ * generate clusters of keys that are close to each other but offer a good cache
+ * performance.
  *
  * @param s String
  * @param num_buckets Size of the hash table
  * @param attempt Attempt number
  * @return int
  */
-static int ht_get_hash(const char *s, const int num_buckets, const int attempt);
+static int ht_hash_double_hashing(const char *s, const int num_buckets,
+                                  const int attempt);
 
 /**
  * Insert a key-value pair into a hash table.
@@ -114,3 +120,4 @@ char *ht_search(ht_hash_table *ht, const char *key);
  * @param key Key
  */
 void ht_delete(ht_hash_table *h, const char *key);
+
