@@ -2,7 +2,7 @@ CC = gcc
 EXT = c
 
 # CFLAGS="-Wall -Wextra -Werror -Wpedantic -std=c99  -o3 -mfma" -std=c11
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c11 -Wimplicit-function-declaration
 LIBS=-lm
 
 INC = -Isrc

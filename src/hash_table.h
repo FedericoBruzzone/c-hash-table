@@ -5,6 +5,7 @@
  * @brief Hash table data structure
  */
 
+#define HT_INITIAL_BASE_SIZE 53
 #define HT_PRIME_1 151
 #define HT_PRIME_2 163
 
@@ -27,6 +28,7 @@ typedef struct {
  * @param items Items in the hash table
  */
 typedef struct {
+  int base_size;
   int size;
   int count;
   ht_item **items;
@@ -121,3 +123,10 @@ char *ht_search(ht_hash_table *ht, const char *key);
  */
 void ht_delete(ht_hash_table *h, const char *key);
 
+/**
+ * Resize a hash table.
+ *
+ * @param ht ht_hash_table
+ * @param base_size Size of the hash table
+ */
+static ht_hash_table *ht_new_sized(const int base_size);

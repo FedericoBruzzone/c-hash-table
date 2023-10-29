@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "prime.h"
 #include "hash_table.h"
+#include "prime.h"
 
 static ht_item *ht_make_item(const char *key, const char *value) {
   ht_item *i = malloc(sizeof(ht_item));
@@ -23,12 +23,7 @@ static ht_item *ht_make_item(const char *key, const char *value) {
 }
 
 ht_hash_table *ht_make() {
-  ht_hash_table *ht = malloc(sizeof(ht_hash_table));
-
-  ht->size = 53;
-  ht->count = 0;
-  ht->items = calloc((size_t)ht->size, sizeof(ht_item *));
-  return ht;
+  return ht_new_sized(HT_INITIAL_BASE_SIZE);
 }
 
 static void ht_del_item(ht_item *item) {
@@ -120,5 +115,14 @@ void ht_delete(ht_hash_table *ht, const char *key) {
     i++;
   }
   ht->count--;
+}
+
+static ht_hash_table *ht_new_sized(const int base_size) {
+  ht_hash_table *ht = malloc(sizeof(ht_hash_table));
+  ht->base_size = base_size;
+  ht->size = next_prime(ht->base_size);
+  ht->count = 0;
+  ht->items = calloc((size_t)ht->size, sizeof(ht_item *));
+  return ht;
 }
 
