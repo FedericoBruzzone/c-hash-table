@@ -130,3 +130,11 @@ void ht_delete(ht_hash_table *h, const char *key);
  * @param base_size Size of the hash table
  */
 static ht_hash_table *ht_new_sized(const int base_size);
+
+/**
+ * Resize a hash table.
+ *
+ * @param ht ht_hash_table
+ * @param base_size Size of the hash table
+ */
+static void ht_resize(ht_hash_table* ht, const int base_size);

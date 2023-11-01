@@ -11,20 +11,16 @@
 
 static ht_item *ht_make_item(const char *key, const char *value) {
   ht_item *i = malloc(sizeof(ht_item));
-
   // i->key = strdup(key);
   i->key = malloc(strlen(key) + 1);
   memcpy(i->key, key, strlen(key) + 1);
   // i->value = strdup(value);
   i->value = malloc(strlen(value) + 1);
   memcpy(i->value, value, strlen(value) + 1);
-
   return i;
 }
 
-ht_hash_table *ht_make() {
-  return ht_new_sized(HT_INITIAL_BASE_SIZE);
-}
+ht_hash_table *ht_make() { return ht_new_sized(HT_INITIAL_BASE_SIZE); }
 
 static void ht_del_item(ht_item *item) {
   free(item->key);
@@ -126,3 +122,24 @@ static ht_hash_table *ht_new_sized(const int base_size) {
   return ht;
 }
 
+static void ht_resize(ht_hash_table *ht, const int base_size) {
+  if (base_size < HT_INITIAL_BASE_SIZE) {
+    return;
+  }
+  ht_hash_table *new_ht = ht_new_sized(base_size);
+  for (int i = 0; i < ht->size; i++) {
+    ht_item *item = ht->items[i];
+    if (item != NULL && item != &HT_DELETED_ITEM) {
+      ht_insert(new_ht, item->key, item->value);
+    }
+  }
+  ht->base_size = new_ht->base_size;
+  ht->count = new_ht->count;
+  const int tmp_size = ht->size;
+  ht->size = new_ht->size;
+  new_ht->size = tmp_size;
+  ht_item **tmp_items = ht->items;
+  ht->items = new_ht->items;
+  new_ht->items = tmp_items;
+  ht_del_hash_table(new_ht);
+}
