@@ -5,10 +5,6 @@
  * @brief Hash table data structure
  */
 
-#define HT_INITIAL_BASE_SIZE 53
-#define HT_PRIME_1 151
-#define HT_PRIME_2 163
-
 /**
  * @brief Hash table item
  *
@@ -35,15 +31,6 @@ typedef struct {
 } ht_hash_table;
 
 /**
- * Create a new hash table item.
- *
- * @param k Key
- * @param v Value
- * @return ht_item
- */
-static ht_item *ht_make_item(const char *key, const char *value);
-
-/**
  * Create a new hash table.
  *
  * @return ht_hash_table
@@ -51,45 +38,11 @@ static ht_item *ht_make_item(const char *key, const char *value);
 ht_hash_table *ht_make();
 
 /**
- * Delete a hash table item.
- *
- * @param i ht_item
- */
-static void ht_del_item(ht_item *item);
-
-/**
  * Delete a hash table.
  *
  * @param ht ht_hash_table
  */
 void ht_del_hash_table(ht_hash_table *ht);
-
-/**
- * Compute the hash of a string.
- *
- * @param s String
- * @param c Prime number
- * @param num_buckets Size of the hash table
- * @return int
- */
-static int ht_hash(const char *s, const int c, const int num_buckets);
-
-/**
- * Compute the hash of a string using the open addressing method with double
- * hashing.
- * Double hashing is a technique in which the second hash function is used to
- * avoid clustering and distribute the keys more uniformly to the detriment of
- * the cache performance. The linear probing and quadratic probing techniques
- * generate clusters of keys that are close to each other but offer a good cache
- * performance.
- *
- * @param s String
- * @param num_buckets Size of the hash table
- * @param attempt Attempt number
- * @return int
- */
-static int ht_hash_double_hashing(const char *s, const int num_buckets,
-                                  const int attempt);
 
 /**
  * Insert a key-value pair into a hash table.
@@ -122,19 +75,3 @@ char *ht_search(ht_hash_table *ht, const char *key);
  * @param key Key
  */
 void ht_delete(ht_hash_table *h, const char *key);
-
-/**
- * Resize a hash table.
- *
- * @param ht ht_hash_table
- * @param base_size Size of the hash table
- */
-static ht_hash_table *ht_new_sized(const int base_size);
-
-/**
- * Resize a hash table.
- *
- * @param ht ht_hash_table
- * @param base_size Size of the hash table
- */
-static void ht_resize(ht_hash_table* ht, const int base_size);
